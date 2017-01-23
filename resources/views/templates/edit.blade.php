@@ -21,12 +21,12 @@
     <h2 class="form-signin-heading">Edycja</h2>
     
     <label for="username" class="sr-only">Login</label>
-    <input type="text" name="username" id="username" class="form-control" placeholder="Login" value="">
+    <input type="text" name="username" id="username" class="form-control" placeholder="Login" value="{{$user->username}}">
     
     <label for="password" class="sr-only">Haslo</label>
     <input type="password" name="password" id="Password" class="form-control" placeholder="Haslo">
     
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Edytuj</button>
     {{ csrf_field() }}
-   
+  
 @endsection

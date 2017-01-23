@@ -21,7 +21,7 @@
     <h2 class="form-signin-heading">Rejestracja</h2>
     
     <label for="username" class="sr-only">Login</label>
-    <input type="text" name="username" id="username" class="form-control" placeholder="Login">
+    <input type="text" name="username" id="username" class="form-control" placeholder="Login" value="{{old('username')}}">
     
     <label for="password" class="sr-only">Haslo</label>
     <input type="password" name="password" id="Password" class="form-control" placeholder="Haslo">
