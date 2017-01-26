@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContactsTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateContactsTable extends Migration
      */
     public function up()
     {
-        schema::create('contacts', function (Blueprint $table) {
+        schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->integer('client_id')->unsigned();
-            $table->timestamps(); 
+            $table->string('file_name');
+            $table->string('title');
+            $table->string('description');
+            $table->Integer('client_id')->unsigned();
+            $table->timestamps();
             
             $table->foreign('client_id')
               ->references('id')->on('clients')
@@ -34,6 +34,6 @@ class CreateContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('notes');
     }
 }

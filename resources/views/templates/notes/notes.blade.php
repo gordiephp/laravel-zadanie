@@ -7,30 +7,29 @@
 
 <div class="container-fluid">
     <div class="row">
-        <h2 class="sub-header">Kontakty</h2>
+        <h2 class="sub-header">Notatki</h2>
             <div class="table-responsive">
-                @if ($contacts->count())
+                @if ($notes->count())
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                            <th>Osoba</th>
-                            <th>Email</th>
-                            <th>Telefon</th>
+                            <th>notatka</th>
+                            <th>data</th>
                             <th>Edytuj</th>
                             <th>Usun</th>
                         </tr>
                       </thead>
                       <tbody>
-                           @foreach($contacts as $contact)
+                           @foreach($notes as $note)
                                 <tr>
-                                    <td>{{ $contact->name }}</td>
-                                    <td>{{ $contact->email }}</td>
-                                    <td>{{ $contact->phone }}</td>
+                                    <td>{{ $note->note }}</td>
+                                    <td>{{ $note->created_at }}</td>
+                                   
                                     <td>
-                                         <a class="btn btn-primary" href="{{ Route('contact.edit', $contact->id) }}">Edytuj</a>
+                                         <a class="btn btn-primary" href="{{ Route('notes.edit', $note->id) }}">Edytuj</a>
                                     </td>
                                     <td>
-                                        <form action="{{ Route('contact.destroy', $contact->id) }}" method="post">
+                                        <form action="{{ Route('notes.destroy', $note->id) }}" method="post">
                                         <button type="submit" class="btn btn-danger">Usun</button>
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
@@ -48,11 +47,11 @@
 @endsection
 
 @section('buttons')
-@if ($contacts->count())
+@if ($notes->count())
 <ul class="nav navbar-nav navbar-right">
-    <li><a href="{{ Route('contactList', $contact->client_id) }}">Kontakty</a></li>
-    <li><a href="{{ Route('noteList', $contact->client_id) }}">Notatki</a></li>
-    <li><a href="{{ Route('fileList', $contact->client_id) }}">Pliki</a></li>
+    <li><a href="{{ Route('contactList', $note->client_id) }}">Kontakty</a></li>
+    <li><a href="{{ Route('noteList', $note->client_id) }}">Notatki</a></li>
+    <li><a href="{{ Route('fileList', $note->client_id) }}">Pliki</a></li>
 </ul>
 @endif
 @endsection

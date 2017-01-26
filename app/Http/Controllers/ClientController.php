@@ -27,11 +27,11 @@ class ClientController extends Controller
     public function postNewClient(Request $request) {
         
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:250',
-            'post_code' => 'required|max:250',
-            'city' => 'required|max:250',
-            'adress' => 'required|max:250',
-            'nip' => 'required|max:250',
+            'name' => 'required|max:50',
+            'post_code' => 'required|max:5|regex:/^[0-9]+$/',
+            'city' => 'required|max:50',
+            'adress' => 'required|max:50',
+            'nip' => 'required|size:10|regex:/^[0-9]+$/',
             'comments' => 'max:250',
         ]);
     
@@ -85,11 +85,11 @@ class ClientController extends Controller
     public function postEdit(Request $request, $id) {
         
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:250',
-            'post_code' => 'required|max:250',
-            'city' => 'required|max:250',
-            'adress' => 'required|max:250',
-            'nip' => 'required|max:250',
+            'name' => 'required|max:50',
+            'post_code' => 'required|max:5|regex:/^[0-9]+$/',
+            'city' => 'required|max:50',
+            'adress' => 'required|max:50',
+            'nip' => 'required|size:10|regex:/^[0-9]+$/',
             'comments' => 'max:250',
         ]);
     

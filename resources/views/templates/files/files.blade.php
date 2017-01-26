@@ -7,30 +7,35 @@
 
 <div class="container-fluid">
     <div class="row">
-        <h2 class="sub-header">Kontakty</h2>
+        <h2 class="sub-header">Pliki</h2>
             <div class="table-responsive">
-                @if ($contacts->count())
+                @if ($files->count())
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                            <th>Osoba</th>
-                            <th>Email</th>
-                            <th>Telefon</th>
+                            <th>&nbsp;</th>
+                            <th>tytul</th>
+                            <th>data</th>
+                            <th>nazwa</th>
+                            <th>opis</th>
                             <th>Edytuj</th>
                             <th>Usun</th>
                         </tr>
                       </thead>
                       <tbody>
-                           @foreach($contacts as $contact)
+                           @foreach($files as $file)
                                 <tr>
-                                    <td>{{ $contact->name }}</td>
-                                    <td>{{ $contact->email }}</td>
-                                    <td>{{ $contact->phone }}</td>
+                                    <td><a class="btn btn-primary" href="{{ Route('pdf', $file->id) }}">Otworz</a>
+                                    </td>
+                                    <td>{{ $file->title }}</td>
+                                    <td>{{ $file->created_at }}</td>
+                                    <td>{{ $file->file_name }}</td>
+                                    <td>{{ $file->description }}</td>
                                     <td>
-                                         <a class="btn btn-primary" href="{{ Route('contact.edit', $contact->id) }}">Edytuj</a>
+                                         <a class="btn btn-primary" href="{{ Route('files.edit', $file->id) }}">Edytuj</a>
                                     </td>
                                     <td>
-                                        <form action="{{ Route('contact.destroy', $contact->id) }}" method="post">
+                                        <form action="{{ Route('files.destroy', $file->id) }}" method="post">
                                         <button type="submit" class="btn btn-danger">Usun</button>
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
@@ -48,11 +53,11 @@
 @endsection
 
 @section('buttons')
-@if ($contacts->count())
+@if ($files->count())
 <ul class="nav navbar-nav navbar-right">
-    <li><a href="{{ Route('contactList', $contact->client_id) }}">Kontakty</a></li>
-    <li><a href="{{ Route('noteList', $contact->client_id) }}">Notatki</a></li>
-    <li><a href="{{ Route('fileList', $contact->client_id) }}">Pliki</a></li>
+    <li><a href="{{ Route('contactList', $file->client_id) }}">Kontakty</a></li>
+    <li><a href="{{ Route('noteList', $file->client_id) }}">Notatki</a></li>
+    <li><a href="{{ Route('fileList', $file->client_id) }}">Pliki</a></li>
 </ul>
 @endif
 @endsection

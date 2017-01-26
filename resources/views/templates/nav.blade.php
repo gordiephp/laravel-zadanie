@@ -22,7 +22,8 @@
           </ul>
             
           <form action="{{ url('clients/') }}" method="post"class="navbar-form navbar-right">
-              <input type="text" class="form-control" placeholder="szukaj..." name="search">
+              <input type="text" class="form-control" placeholder="Nazwa firmy..." name="search">
+               <button type="submit" class="btn btn-default">szukaj</button>
               {{ csrf_field() }}
           </form>
         </div>

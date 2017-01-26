@@ -13,6 +13,8 @@
 //home po zalogowaniu
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 
+//konta////////////////////////////////////////////////
+
 //logowanie
 Route::get('signin', 'UserController@getSignIn')->name('signIn');
 Route::post('signin', 'UserController@postSignIn')->name('signIn');
@@ -64,6 +66,39 @@ Route::get('contact/create/{id}', 'ContactController@create')->name('createConta
 Route::post('contact/create/{id}', 'ContactController@storeId')->name('createContact')->middleware('auth');
 
 Route::resource('contact', 'ContactController');
+
+//notatki////////////////////////////////////////////////
+
+//nowa notatka klienta
+Route::get('notes/create/{id}', 'NoteController@create')->name('createNote')->middleware('auth');
+Route::post('notes/create/{id}', 'noteController@storeId')->name('createNote')->middleware('auth');
+
+//lista notatek klienta
+Route::get('notes/{id}/client', 'NoteController@NoteIndex')->name('noteList')->middleware('auth');
+
+Route::resource('notes', 'NoteController');
+
+//pliki klienta//////////////////////////////////////////
+
+//nowy plik klienta
+Route::get('files/create/{id}', 'FileController@create')->name('createFile')->middleware('auth');
+Route::post('files/create/{id}', 'FileController@storeId')->name('createFile')->middleware('auth');
+
+//lista plikow klienta
+Route::get('files/{id}/client', 'FileController@fileIndex')->name('fileList')->middleware('auth');
+
+Route::resource('files', 'FileController');
+
+//otworz plik klienta
+Route::get('pdf/{id}', 'FileController@pdf')->name('pdf')->middleware('auth'); 
+
+
+
+
+
+
+
+
 
 
 

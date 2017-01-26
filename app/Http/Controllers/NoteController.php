@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Contact;
-use App\Client;
+use App\Note;
 use Illuminate\Support\Facades\Validator;
+use App\Client;
 
-
-class ContactController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +27,7 @@ class ContactController extends Controller
     public function create($id)
     {
         $client = Client::find($id);
-        return view('templates.contacts.new', compact('client'));
+        return view('templates.notes.new', compact('client'));
     }
 
     /**
@@ -37,12 +36,11 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
     public function store(Request $request)
     {
-       // 
+        //
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -51,7 +49,7 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-       //
+        //
     }
 
     /**
@@ -62,9 +60,9 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        $contact = Contact::find($id);
+        $note = Note::find($id);
         
-        return view('templates.contacts.edit', compact('contact'));
+        return view('templates.notes.edit', compact('note'));
     }
 
     /**
@@ -78,9 +76,7 @@ class ContactController extends Controller
     {
             
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:50',
-            'email' => 'required|email|max:254',
-            'phone' => 'max:20|regex:/^[0-9]+$/',
+            'note' => 'required',
         ]);
     
         if($validator->fails()) {
@@ -89,15 +85,13 @@ class ContactController extends Controller
                 ->withErrors($validator);
         }
                
-        $contact = Contact::find($id);
+        $note = Note::find($id);
         
-        $contact->client_id = $request->input('client_id');
-        $contact->name = $request->input('name');
-        $contact->email = $request->input('email'); 
-        $contact->phone = $request->input('phone');
-        
-        $contact->save();
-        return Redirect()->Route('contactList', $contact->client_id);
+        $note->client_id = $request->input('client_id');
+        $note->note = $request->input('note');
+                
+        $note->save();
+        return Redirect()->Route('noteList', $note->client_id);
     }
 
     /**
@@ -108,27 +102,17 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $contact = Contact::find($id);
-        $contact->delete();
+        $note = Note::find($id);
+        $note->delete();
         
         return Redirect()->back();
     }
     
-    public function ContactsIndex($id) {
-                
-        $contacts = Contact::orderBy('id', 'asc')
-                ->where('client_id','=',$id)
-                ->get();
-        
-        return view('templates.contacts.contacts', compact('contacts'));      
-    }
-    
     public function storeId(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:50',
-            'email' => 'required|email|max:254',
-            'phone' => 'max:20|regex:/^[0-9]+$/',
+            'note' => 'required',
         ]);
     
         if($validator->fails()) {
@@ -137,27 +121,22 @@ class ContactController extends Controller
                 ->withErrors($validator);
         }
         
-        $contact = new Contact();
+        $note = new Note();
         
-        $contact->client_id = $request->input('client_id');
-        $contact->name = $request->input('name');
-        $contact->email = $request->input('email'); 
-        $contact->phone = $request->input('phone');
-        
-        $contact->save();
+        $note->client_id = $request->input('client_id');
+        $note->note = $request->input('note');
+                
+        $note->save();
 
-        return Redirect()->Route('contactList',$contact->client_id);
+        return Redirect()->Route('noteList',$note->client_id);
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public function NoteIndex($id) {
+                
+        $notes = Note::orderBy('created_at', 'desc')
+                ->where('client_id','=',$id)
+                ->get();
+        
+        return view('templates.notes.notes', compact('notes'));      
+    }
 }

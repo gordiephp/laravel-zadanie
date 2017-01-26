@@ -44,18 +44,21 @@
                       </tbody>
                     </table>
                 <a class="btn btn-success" href="{{ Route('createContact', $client->id) }}">Dodaj kontakt</a>
-                <a class="btn btn-info" href="">Dodaj notatke</a>
-                <a class="btn btn-warning" href="">Dodaj plik</a>
+                <a class="btn btn-info" href="{{ Route('createNote', $client->id) }}">Dodaj notatke</a>
+                <a class="btn btn-warning" href="{{ Route('createFile', $client->id) }}">Dodaj plik</a>
                 @endif
             </div>
     </div>
 </div>
 
 @endsection
+
 @section('buttons')
+@if($client->count())
 <ul class="nav navbar-nav navbar-right">
     <li><a href="{{ Route('contactList', $client->id) }}">Kontakty</a></li>
-    <li><a href="{{ Route('users') }}">Notatki</a></li>
-    <li><a href="{{ Route('signUp') }}">Pliki</a></li>
+    <li><a href="{{ Route('noteList', $client->id) }}">Notatki</a></li>
+    <li><a href="{{ Route('fileList', $client->id) }}">Pliki</a></li>
 </ul>
+@endif
 @endsection
